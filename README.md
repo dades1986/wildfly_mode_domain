@@ -1,3 +1,5 @@
+- ![#f03c15](images/css_images/f03c15.png)**![#f03c15](images/css_images/f03c15.png)**![#f03c15](images/css_images/f03c15.png)**![#f03c15](images/css_images/f03c15.png) **Partie 1 : paramétrage du MASTER**![#f03c15](images/css_images/f03c15.png)**![#f03c15](images/css_images/f03c15.png)**![#f03c15](images/css_images/f03c15.png)**![#f03c15](images/css_images/f03c15.png)
+ 
 # wildfly_mode_domain
 a configuration of domainwildfly
 
@@ -123,4 +125,55 @@ Commentez toute la partie <servers>
  root@rnds:~$ netstat -pltn
 ```
 ![alt text](images/image15.png)
+
+- ![#f03c15](images/css_images/f03c15.png)**![#f03c15](images/css_images/f03c15.png)**![#f03c15](images/css_images/f03c15.png)**![#f03c15](images/css_images/f03c15.png) **Partie 2 : paramétrage du Slave1**![#f03c15](images/css_images/f03c15.png)**![#f03c15](images/css_images/f03c15.png)**![#f03c15](images/css_images/f03c15.png)**![#f03c15](images/css_images/f03c15.png)
+
+# Aller sur la machine 2:
+```bash
+root@wildfly:~$ sudo su
+root@dmz1:~$ cd /opt
+root@dmz1:~$ mkdir source
+root@dmz1:~$ cd source
+root@dmz1:~$ wget https://download.jboss.org/wildfly/13.0.0.Final/wildfly-13.0.0.Final.tar.gz
+root@dmz1:~$ cd /opt
+root@dmz1:~$ tar -zxvf source/wildfly-13.0.0.Final.tar.gz -C /opt
+root@dmz1:~$ mv wildfly-13.0.0.Final/ wildflycd wildfly/docs/contrib/scripts/systemd
+```
+![alt text](images/image16.png)
+```bash
+root@dmz1:~$cat README
+```
+![alt text](images/image17.png)
+
+```bash
+ root@dmz1:~$ mkdir /etc/wildfly
+root@dmz1:~$ cp wildfly.conf /etc/wildfly/
+root@dmz1:~$ cp wildfly.service /etc/systemd/system/
+root@dmz1:~$cp launch.sh /opt/wildfly/bin/
+root@dmz1:~$chmod +x /opt/wildfly/bin/launch.sh
+root@dmz1:~$vi /etc/wildfly/wildfly.conf
+```
+![alt text](images/image18.png)
+```bash
+root@dmz1:~$ vi /etc/systemd/system/wildfly.service
+```
+![alt text](images/image19.png)
+```bash
+root@dmz1:~$ cd /opt/wildfly/domain/configuration
+```
+![alt text](images/image20.png)
+
+```bash
+root@dmz1:~$cp host.xml host.xml.ori
+root@dmz1:~$cp host-slave.xml host.xml
+root@dmz1:~$vi host.xml
+```
+![alt text](images/image21.png)
+
+- ![#f03c15](images/css_images/c5f015.png)**![#f03c15](images/css_images/c5f015.png)**![#f03c15](images/css_images/c5f015.png)**![#f03c15](images/css_images/c5f015.png) *Revenir sur la machine1**![#f03c15](images/css_images/c5f015.png)**![#c5f015](images/css_images/c5f015.png)**![#c5f015](images/css_images/c5f015.png)**![#c5f015](images/css_images/c5f015.png)
+
+```bash
+root@dmz1:~$cd   /opt/wildfly/bin
+root@dmz1:~$./add-user.sh
+```
 
