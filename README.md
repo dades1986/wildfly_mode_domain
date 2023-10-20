@@ -176,4 +176,18 @@ root@dmz1:~$vi host.xml
 root@dmz1:~$cd   /opt/wildfly/bin
 root@dmz1:~$./add-user.sh
 ```
+![alt text](images/image22.png)
+![alt text](images/image23.png)
+![alt text](images/image24.png)
+(password =password, même si il est compatible avec le regex wildfly)
+![alt text](images/image25.png)
+Cliquez sur “entree”
+![alt text](images/image26.png)
+```bash
+root@dmz1:~$cp domain.xml domain.xml.ori
+root@dmz1:~$vi domain.xml
+
+
+
+
 
