@@ -216,7 +216,8 @@ modifier la partie  ``` <servers></servers> ``` en rajoutant
 ```bash
  root@rnds:~$ cd /
  root@rnds:~$  systemctl restart wildfly
- root@rnds:~$  systemctl status wildfly```
+ root@rnds:~$  systemctl status wildfly
+```
 ![alt text](images/image33.png)
 
 
