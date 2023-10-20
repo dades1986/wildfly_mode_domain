@@ -275,7 +275,7 @@ root@rnds:~$./add-user.sh
 
 Créer un autre utilisateur : dmz2.cyberlink.co.id
 
-![alt text](images/image27.png)
+![alt text](images/image34.png)
 Copier   ```<secret value="cGFzc3dvcmQ=" />``` dans 
  ```<server-identities>```
                  ```<secret value="cGFzc3dvcmQ=" />```
@@ -283,13 +283,13 @@ Copier   ```<secret value="cGFzc3dvcmQ=" />``` dans
 
 Au niveau de    ```<security-realm name="ManagementRealm">```
 
-![alt text](images/image28.png)
+![alt text](images/image35.png)
 
 modifier la partie  ``` <servers></servers> ``` en rajoutant
  ```<!-- Host2--> ```
          ```<server name="server-2.dmz2.cyberlink.co.id" group="cyberlink-cluster-group"/>```
 
-![alt text](images/image29.png)
+![alt text](images/image36.png)
 
 ```bash
  root@dmz2:~$ vi logging.properties
@@ -299,13 +299,13 @@ modifier la partie  ``` <servers></servers> ``` en rajoutant
  root@dmz2:~$ mkdir /var/log/wildfly.log
  root@dmz2:~$ vi  /opt/wildfly/bin/launch.sh
 ```
-![alt text](images/image31.png)
+![alt text](images/image37.png)
 ```bash
  root@dmz2:~$ cd /
  root@dmz2:~$  systemctl restart wildfly
  root@dmz2:~$  systemctl status wildfly
 ```
-![alt text](images/image33.png)
+![alt text](images/image38.png)
 
 
 
