@@ -185,22 +185,24 @@ root@dmz1:~$./add-user.sh
 ![alt text](images/image25.png)
 Cliquez sur “entree”
 ![alt text](images/image26.png)
-```bash
+
 Créer un autre utilisateur : dmz1.cyberlink.co.id
 
 ![alt text](images/image27.png)
 Copier   ```<secret value="cGFzc3dvcmQ=" />``` dans 
- ```<server-identities>
-                 <secret value="cGFzc3dvcmQ=" />
-  </server-identities>```
-Au niveau de    ```<security-realm name="ManagementRealm">```
-![alt text](images/image27.png)
+ ```<server-identities>```
+                 ```<secret value="cGFzc3dvcmQ=" />```
+    ```</server-identities> ```
 
-modifier la partie  ``` <servers></servers> ``` en rajoutant
- ```<!-- Host1-->
-        <server name="server-1.dmz1.cyberlink.co.id" group="cyberlink-cluster-group"/>  ```
+Au niveau de    ```<security-realm name="ManagementRealm">```
 
 ![alt text](images/image28.png)
+
+modifier la partie  ``` <servers></servers> ``` en rajoutant
+ ```<!-- Host1--> ```
+         ```<server name="server-1.dmz1.cyberlink.co.id" group="cyberlink-cluster-group"/>```
+
+![alt text](images/image29.png)
 
 ```bash
  root@rnds:~$ vi logging.properties
