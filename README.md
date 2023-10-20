@@ -65,7 +65,8 @@ root@rnds:~$ cd source
 root@rnds:~$ wget https://download.jboss.org/wildfly/13.0.0.Final/wildfly-13.0.0.Final.tar.gz
 root@rnds:~$ cd /opt
 root@rnds:~$ tar -zxvf source/wildfly-13.0.0.Final.tar.gz -C /opt
-root@rnds:~$ mv wildfly-13.0.0.Final/ wildflycd wildfly/docs/contrib/scripts/systemd
+root@rnds:~$ mv wildfly-13.0.0.Final/ wildfly
+root@rnds:~$ cd wildfly/docs/contrib/scripts/systemd
 ```
 ![alt text](images/image5.png)
 
@@ -137,7 +138,8 @@ root@dmz1:~$ cd source
 root@dmz1:~$ wget https://download.jboss.org/wildfly/13.0.0.Final/wildfly-13.0.0.Final.tar.gz
 root@dmz1:~$ cd /opt
 root@dmz1:~$ tar -zxvf source/wildfly-13.0.0.Final.tar.gz -C /opt
-root@dmz1:~$ mv wildfly-13.0.0.Final/ wildflycd wildfly/docs/contrib/scripts/systemd
+root@dmz1:~$ mv wildfly-13.0.0.Final/ wildfly
+root@dmz1:~$cd wildfly/docs/contrib/scripts/systemd
 ```
 ![alt text](images/image16.png)
 ```bash
@@ -184,8 +186,37 @@ root@dmz1:~$./add-user.sh
 Cliquez sur “entree”
 ![alt text](images/image26.png)
 ```bash
-root@dmz1:~$cp domain.xml domain.xml.ori
-root@dmz1:~$vi domain.xml
+Créer un autre utilisateur : dmz1.cyberlink.co.id
+
+![alt text](images/image27.png)
+Copier   ```<secret value="cGFzc3dvcmQ=" />``` dans 
+ ```<server-identities>
+                 <secret value="cGFzc3dvcmQ=" />
+  </server-identities>```
+Au niveau de    ```<security-realm name="ManagementRealm">```
+![alt text](images/image27.png)
+
+modifier la partie  ``` <servers></servers> ``` en rajoutant
+ ```<!-- Host1-->
+        <server name="server-1.dmz1.cyberlink.co.id" group="cyberlink-cluster-group"/>  ```
+
+![alt text](images/image28.png)
+
+```bash
+ root@rnds:~$ vi logging.properties
+```
+![alt text](images/image30.png)
+```bash
+ root@rnds:~$ mkdir /var/log/wildfly.log
+ root@rnds:~$ vi  /opt/wildfly/bin/launch.sh
+```
+![alt text](images/image31.png)
+```bash
+ root@rnds:~$ cd /
+ root@rnds:~$  systemctl restart wildfly
+ root@rnds:~$  systemctl status wildfly
+![alt text](images/image32.png)
+
 
 
 
