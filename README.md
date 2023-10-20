@@ -175,8 +175,8 @@ root@dmz1:~$vi host.xml
 - ![#f03c15](images/css_images/c5f015.png)**![#f03c15](images/css_images/c5f015.png)**![#f03c15](images/css_images/c5f015.png)**![#f03c15](images/css_images/c5f015.png) *Revenir sur la machine1**![#f03c15](images/css_images/c5f015.png)**![#c5f015](images/css_images/c5f015.png)**![#c5f015](images/css_images/c5f015.png)**![#c5f015](images/css_images/c5f015.png)
 
 ```bash
-root@dmz1:~$cd   /opt/wildfly/bin
-root@dmz1:~$./add-user.sh
+root@rnds:~$cd   /opt/wildfly/bin
+root@rnds:~$./add-user.sh
 ```
 ![alt text](images/image22.png)
 ![alt text](images/image23.png)
@@ -217,6 +217,93 @@ modifier la partie  ``` <servers></servers> ``` en rajoutant
  root@rnds:~$ cd /
  root@rnds:~$  systemctl restart wildfly
  root@rnds:~$  systemctl status wildfly
+```
+![alt text](images/image33.png)
+
+- ![#f03c15](images/css_images/f03c15.png)**![#f03c15](images/css_images/f03c15.png)**![#f03c15](images/css_images/f03c15.png)**![#f03c15](images/css_images/f03c15.png) **Partie 3 : paramétrage du Slave2**![#f03c15](images/css_images/f03c15.png)**![#f03c15](images/css_images/f03c15.png)**![#f03c15](images/css_images/f03c15.png)**![#f03c15](images/css_images/f03c15.png)
+
+# Aller sur la machine 3:
+```bash
+root@wildfly:~$ sudo su
+root@dmz2:~$ cd /opt
+root@dmz2:~$ mkdir source
+root@dmz2:~$ cd source
+root@dmz2:~$ wget https://download.jboss.org/wildfly/13.0.0.Final/wildfly-13.0.0.Final.tar.gz
+root@dmz2:~$ cd /opt
+root@dmz2:~$ tar -zxvf source/wildfly-13.0.0.Final.tar.gz -C /opt
+root@dmz2:~$ mv wildfly-13.0.0.Final/ wildfly
+root@dmz2:~$cd wildfly/docs/contrib/scripts/systemd
+```
+![alt text](images/image16.png)
+```bash
+root@dmz2:~$cat README
+```
+![alt text](images/image17.png)
+
+```bash
+ root@dmz2:~$ mkdir /etc/wildfly
+root@dmz2:~$ cp wildfly.conf /etc/wildfly/
+root@dmz2:~$ cp wildfly.service /etc/systemd/system/
+root@dmz2:~$cp launch.sh /opt/wildfly/bin/
+root@dmz2:~$chmod +x /opt/wildfly/bin/launch.sh
+root@dmz2:~$vi /etc/wildfly/wildfly.conf
+```
+![alt text](images/image18.png)
+```bash
+root@dmz2:~$ vi /etc/systemd/system/wildfly.service
+```
+![alt text](images/image19.png)
+```bash
+root@dmz2:~$ cd /opt/wildfly/domain/configuration
+```
+![alt text](images/image20.png)
+
+```bash
+root@dmz2:~$cp host.xml host.xml.ori
+root@dmz2:~$cp host-slave.xml host.xml
+root@dmz2:~$vi host.xml
+```
+![alt text](images/image21.png)
+
+- ![#f03c15](images/css_images/c5f015.png)**![#f03c15](images/css_images/c5f015.png)**![#f03c15](images/css_images/c5f015.png)**![#f03c15](images/css_images/c5f015.png) *Revenir sur la machine1**![#f03c15](images/css_images/c5f015.png)**![#c5f015](images/css_images/c5f015.png)**![#c5f015](images/css_images/c5f015.png)**![#c5f015](images/css_images/c5f015.png)
+
+```bash
+root@rnds:~$cd   /opt/wildfly/bin
+root@rnds:~$./add-user.sh
+```
+
+
+Créer un autre utilisateur : dmz2.cyberlink.co.id
+
+![alt text](images/image27.png)
+Copier   ```<secret value="cGFzc3dvcmQ=" />``` dans 
+ ```<server-identities>```
+                 ```<secret value="cGFzc3dvcmQ=" />```
+    ```</server-identities> ```
+
+Au niveau de    ```<security-realm name="ManagementRealm">```
+
+![alt text](images/image28.png)
+
+modifier la partie  ``` <servers></servers> ``` en rajoutant
+ ```<!-- Host2--> ```
+         ```<server name="server-2.dmz2.cyberlink.co.id" group="cyberlink-cluster-group"/>```
+
+![alt text](images/image29.png)
+
+```bash
+ root@dmz2:~$ vi logging.properties
+```
+![alt text](images/image30.png)
+```bash
+ root@dmz2:~$ mkdir /var/log/wildfly.log
+ root@dmz2:~$ vi  /opt/wildfly/bin/launch.sh
+```
+![alt text](images/image31.png)
+```bash
+ root@dmz2:~$ cd /
+ root@dmz2:~$  systemctl restart wildfly
+ root@dmz2:~$  systemctl status wildfly
 ```
 ![alt text](images/image33.png)
 
