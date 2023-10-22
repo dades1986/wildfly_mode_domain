@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" ?>
 
 <domain xmlns="urn:jboss:domain:7.0">
     <extensions>
@@ -611,7 +611,7 @@
                 <sasl>
                     <sasl-authentication-factory name="application-sasl-authentication" sasl-server-factory="configured" security-domain="ApplicationDomain">
                         <mechanism-configuration>
-                            <mehanism mechanism-name="JBOSS-LOCAL-USER" realm-mapper="local"/>
+                            <mechanism mechanism-name="JBOSS-LOCAL-USER" realm-mapper="local"/>
                             <mechanism mechanism-name="DIGEST-MD5">
                                 <mechanism-realm realm-name="ApplicationRealm"/>
                             </mechanism>
@@ -1159,7 +1159,7 @@
                     <jms-queue name="ExpiryQueue" entries="java:/jms/queue/ExpiryQueue"/>
                     <jms-queue name="DLQ" entries="java:/jms/queue/DLQ"/>
                     <connection-factory name="InVmConnectionFactory" entries="java:/ConnectionFactory" connectors="in-vm"/>
-                    <connection-factory name="RemoteConnectionFactory" entries="java:jboss/exported/jms/RemoteConnectionFactory" connectors="http-connector"/>
+                    <connection-factory name="RemoteConnectionFactory" entries="java:jboss/xported/jms/RemoteConnectionFactory" connectors="http-connector"/>
                     <pooled-connection-factory name="activemq-ra" entries="java:/JmsXA java:jboss/DefaultJMSConnectionFactory" connectors="in-vm" transaction="xa"/>
                 </server>
             </subsystem>
@@ -1426,7 +1426,7 @@
                     <permission-set name="login-permission">
                         <permission class-name="org.wildfly.security.auth.permission.LoginPermission"/>
                     </permission-set>
-                   <permission-set name="default-permissions">
+                    <permission-set name="default-permissions">
                         <permission class-name="org.wildfly.extension.batch.jberet.deployment.BatchPermission" module="org.wildfly.extension.batch.jberet" target-name="*"/>
                         <permission class-name="org.wildfly.transaction.client.RemoteTransactionPermission" module="org.wildfly.transaction.client"/>
                         <permission class-name="org.jboss.ejb.client.RemoteEJBPermission" module="org.jboss.ejb-client"/>
@@ -1693,7 +1693,7 @@
                     <http-listener name="default" socket-binding="http" redirect-socket="https" enable-http2="true"/>
                     <https-listener name="https" socket-binding="https" security-realm="ApplicationRealm" enable-http2="true"/>
                     <host name="default-host" alias="localhost">
-                        <location name="/" handler="welcome-content"/>
+                        <loction name="/" handler="welcome-content"/>
                         <http-invoker security-realm="ApplicationRealm"/>
                     </host>
                 </server>
@@ -1839,19 +1839,45 @@
             <socket-binding name="modcluster" interface="private" multicast-address="${jboss.modcluster.multicast.address:224.0.1.105}" multicast-port="23364"/>
         </socket-binding-group>
     </socket-binding-groups>
-    <deployments>
-        <deployment name="deploy-test" runtime-name="deploy-test">
-            <content sha1="821a7f6d4793594c79a5b724e874b6a8a784026b" archive="false"/>
-        </deployment>
-    </deployments>
     <server-groups>
-        <server-group name="cyberlink-cluster-group" profile="ha">
+            <!--cyberlink-->
+            <server-group name="cyberlink-cluster-group" profile="ha">
             <jvm name="default">
                 <heap size="64m" max-size="512m"/>
             </jvm>
             <socket-binding-group ref="ha-sockets"/>
-            <deployments>
-                <deployment name="deploy-test" runtime-name="deploy-test"/>
-            </deployments>
         </server-group>
     </server-groups>
+    <host-excludes>
+        <host-exclude name="WildFly10.0">
+            <host-release id="WildFly10.0"/>
+            <excluded-extensions>
+                <extension module="org.wildfly.extension.core-management"/>
+                <extension module="org.wildfly.extension.discovery"/>
+                <extension module="org.wildfly.extension.ee-security"/>
+                <extension module="org.wildfly.extension.elytron"/>
+            </excluded-extensions>
+        </host-exclude>
+        <host-exclude name="WildFly10.1">
+            <host-release id="WildFly10.1"/>
+            <excluded-extensions>
+                <extension module="org.wildfly.extension.core-management"/>
+                <extension module="org.wildfly.extension.discovery"/>
+                <extension module="org.wildfly.extension.ee-security"/>
+                <extension module="org.wildfly.extension.elytron"/>
+            </excluded-extensions>
+        </host-exclude>
+        <host-exclude name="WildFly11.0">
+            <host-release id="WildFly11.0"/>
+            <excluded-extensions>
+                <extension module="org.wildfly.extension.ee-security"/>
+            </excluded-extensions>
+        </host-exclude>
+        <host-exclude name="WildFly12.0">
+            <host-release id="WildFly12.0"/>
+            <excluded-extensions>
+                <extension module="org.wildfly.extension.ee-security"/>
+            </excluded-extensions>
+        </host-exclude>
+    </host-excludes>
+</domain>
